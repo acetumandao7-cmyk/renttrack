@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 style="font-family: serif;">Admin Dashboard</h2>
+    </div>
+
+    <div class="row g-4 mb-5">
+        <div class="col-md-4">
+            <div class="card border-0 bg-light p-4 rounded-0 shadow-sm">
+                <h6 class="text-muted mb-2">Active Rentals</h6>
+                <h3 class="fw-bold mb-0">{{ active_count }}</h3>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-0 bg-light p-4 rounded-0 shadow-sm">
+                <h6 class="text-muted mb-2">Overdue / Due Soon</h6>
+                <h3 class="fw-bold text-danger mb-0">{{ overdue_count }}</h3>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-0 bg-light p-4 rounded-0 shadow-sm">
+                <h6 class="text-muted mb-2">Total Revenue</h6>
+                <h3 class="fw-bold text-success mb-0">P{{ total_revenue }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="card border-0 bg-light p-4 rounded-0 shadow-sm">
+        <h4 class="mb-4" style="font-family: serif;">All Rental Transactions Monitoring</h4>
+        <div class="table-responsive">
+            <table class="table align-middle mb-0 bg-white">
+                <thead class="bg-dark text-white">
+                    <tr>
+                        <th class="py-3 ps-3">Transaction ID</th>
+                        <th class="py-3">Customer Email</th>
+                        <th class="py-3">Item(s)</th>
+                        <th class="py-3">Start Date</th>
+                        <th class="py-3">Return Date</th>
+                        <th class="py-3">Amount</th>
+                        <th class="py-3">Status</th>
+                        <th class="py-3">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if rentals %}
+                        {% for r in rentals %}
+                        <tr>
+                            <td class="ps-3 fw-bold">{{ r.transaction_id }}</td>
+                            <td>{{ r.customer_email }}</td>
+                            <td>{{ r.item_name }}</td>
+                            <td>{{ r.start_date }}</td>
+                            <td>{{ r.return_date }}</td>
+                            <td>P{{ r.total_amount }}</td>
+                            <td>
+                                <span class="badge {% if r.status == 'Returned' %}bg-secondary{% else %}bg-success{% endif %} rounded-0 px-2 py-1">
+                                    {{ r.status }}
+                                </span>
+                            </td>
+                            <td>
+                                {% if r.status != 'Returned' %}
+                                    <a href="{{ url_for('mark_returned', id=r.id) }}" class="btn btn-outline-success btn-sm rounded-0">Mark Returned</a>
+                                {% else %}
+                                    <span class="text-muted small">Completed</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="8" class="text-center py-4 text-muted">No rental transactions yet.</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container my-5">
+    <!-- Header with Search & Filter status -->
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
+        <div>
+            {% if search_query %}
+                <h2 style="font-family: 'Playfair Display', serif;" class="mb-1">
+                    Search Results for <span class="text-navy">"{{ search_query }}"</span>
+                </h2>
+                <div class="d-flex align-items-center gap-2 mt-2">
+                    <span class="badge bg-light text-dark border px-3 py-2">{{ items|length }} item{{ 's' if items|length != 1 else '' }} found</span>
+                    <a href="{{ url_for('catalog') }}" class="btn btn-outline-secondary btn-sm rounded-0" style="font-size: 0.78rem;">
+                        <i class="bi bi-x-circle me-1"></i>Clear Search
+                    </a>
+                </div>
+            {% elif category %}
+                <h2 style="font-family: 'Playfair Display', serif;" class="text-uppercase mb-1">{{ category }}</h2>
+                <div class="d-flex align-items-center gap-2 mt-2">
+                    <span class="badge bg-light text-dark border px-3 py-2">{{ items|length }} item{{ 's' if items|length != 1 else '' }} available</span>
+                    <a href="{{ url_for('catalog') }}" class="btn btn-outline-secondary btn-sm rounded-0" style="font-size: 0.78rem;">
+                        <i class="bi bi-grid me-1"></i>View All Collections
+                    </a>
+                </div>
+            {% else %}
+                <h2 style="font-family: 'Playfair Display', serif;" class="text-uppercase mb-1">All Collections</h2>
+                <span class="text-muted small">{{ items|length }} items available</span>
+            {% endif %}
+        </div>
+
+        <!-- Inline search box inside catalog for quick filtering -->
+        <div style="min-width: 260px; max-width: 380px;" class="w-100">
+            <form action="{{ url_for('catalog') }}" method="GET" class="d-flex">
+                {% if category %}
+                <input type="hidden" name="category" value="{{ category }}">
+                {% endif %}
+                <div class="input-group">
+                    <input type="text" name="search" class="form-control rounded-0" 
+                           placeholder="Search gowns, dresses..." 
+                           value="{{ search_query if search_query else '' }}">
+                    <button class="btn btn-dark rounded-0 px-3" type="submit">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Items Grid -->
+    <div class="row g-4">
+        {% if items %}
+            {% for item in items %}
+            <div class="col-6 col-md-3">
+                <div class="card border-0 bg-transparent rounded-0 h-100">
+                    <div class="position-relative overflow-hidden bg-light" style="height: 320px;">
+                        {% if item.image_url %}
+                            <img src="{{ url_for('static', filename=item.image_url) }}" class="w-100 h-100 object-fit-cover" alt="{{ item.name }}"
+                                 style="transition: transform 0.3s ease;"
+                                 onmouseover="this.style.transform='scale(1.05)'"
+                                 onmouseout="this.style.transform='scale(1)'">
+                        {% else %}
+                            <div class="d-flex align-items-center justify-content-center h-100 text-muted">No Image</div>
+                        {% endif %}
+                        <span class="position-absolute top-0 start-0 m-2 badge bg-white text-dark shadow-sm rounded-0" style="font-size: 0.7rem; letter-spacing: 0.5px;">
+                            {{ item.category }}
+                        </span>
+                    </div>
+                    <div class="card-body px-0 pt-3 pb-0">
+                        <h6 class="card-title mb-1 text-dark fw-normal" style="font-size: 0.95rem;">{{ item.name }}</h6>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="text-muted small">Size: {{ item.size }}</span>
+                            <span class="fw-semibold text-dark small">₱{{ "%.2f"|format(item.price) }} / day</span>
+                        </div>
+                        <a href="{{ url_for('item_detail', id=item.id) }}" class="btn btn-outline-dark btn-sm rounded-0 w-100 text-uppercase" style="font-size: 0.75rem; letter-spacing: 1px;">
+                            View & Rent
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-12 text-center py-5 my-4">
+                <div class="mb-3 text-muted" style="font-size: 3rem;">
+                    <i class="bi bi-search"></i>
+                </div>
+                <h5 class="fw-normal text-dark mb-2">
+                    {% if search_query %}
+                        No items found matching "{{ search_query }}"
+                    {% else %}
+                        No items found in this category yet
+                    {% endif %}
+                </h5>
+                <p class="text-muted small mb-4">Try checking for typos or browse our complete collection below.</p>
+                <a href="{{ url_for('catalog') }}" class="btn btn-navy px-4 py-2">
+                    Explore All Collections
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

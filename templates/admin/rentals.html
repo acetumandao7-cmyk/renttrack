@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container my-5">
+    <h2 class="mb-4" style="font-family: serif;">Rental Transactions & Monitoring</h2>
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>ID</th>
+                    <th>Customer</th>
+                    <th>Item</th>
+                    <th>Start Date</th>
+                    <th>Return Date</th>
+                    <th>Status / Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if rentals %}
+                    {% for r in rentals %}
+                    <tr>
+                        <td>{{ r.transaction_id }}</td>
+                        <td>{{ r.customer_email }}</td>
+                        <td>{{ r.item_name }}</td>
+                        <td>{{ r.start_date }}</td>
+                        <td>{{ r.return_date }}</td>
+                        <td>
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="badge {{ r.badge_class }} rounded-0 px-2 py-2">{{ r.computed_status }}</span>
+                                {% if r.status != 'Returned' %}
+                                    <a href="{{ url_for('mark_returned', id=r.id) }}" class="btn btn-sm btn-dark rounded-0 text-nowrap">Mark Returned</a>
+                                {% else %}
+                                    <span class="text-muted small">Completed</span>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center text-muted py-4">No rental transactions found.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

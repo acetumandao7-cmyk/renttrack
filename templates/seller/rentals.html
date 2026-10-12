@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 style="font-family: serif;">Seller Rentals Monitoring</h2>
+    </div>
+
+    <div class="card border-0 bg-light p-4 rounded-0">
+        <div class="table-responsive">
+            <table class="table align-middle mb-0 bg-white">
+                <thead class="bg-dark text-white">
+                    <tr>
+                        <th class="py-3 ps-3">Transaction ID</th>
+                        <th class="py-3">Customer Email</th>
+                        <th class="py-3">Rented Item(s)</th>
+                        <th class="py-3">Start Date</th>
+                        <th class="py-3">Return Date</th>
+                        <th class="py-3">Total Amount</th>
+                        <th class="py-3">Status</th>
+                        <th class="py-3">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if rentals %}
+                        {% for r in rentals %}
+                        <tr>
+                            <td class="ps-3 fw-bold">{{ r.transaction_id }}</td>
+                            <td>{{ r.customer_email }}</td>
+                            <td>{{ r.item_name }}</td>
+                            <td>{{ r.start_date }}</td>
+                            <td>{{ r.return_date }}</td>
+                            <td>P{{ r.total_amount }}</td>
+                            <td>
+                                <span class="badge {{ r.badge_class }} rounded-0 px-2 py-1">
+                                    {{ r.computed_status }}
+                                </span>
+                            </td>
+                            <td>
+                                {% if r.status != 'Returned' %}
+                                    <a href="{{ url_for('seller_mark_returned', id=r.id) }}" class="btn btn-outline-success btn-sm rounded-0">Mark Returned</a>
+                                {% else %}
+                                    <span class="text-muted small">Completed</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="8" class="text-center py-4 text-muted">No rental transactions found for your items yet.</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

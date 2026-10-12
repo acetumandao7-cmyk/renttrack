@@ -1,0 +1,844 @@
+/* ===========================
+   RENTTRACK — Global Styles
+   =========================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
+:root {
+    --navy: #1e3a5f;
+    --navy-mid: #2d5282;
+    --sky-blue: #b8d4e8;
+    --sky-light: #d6e9f5;
+    --sky-bg: #c5ddf0;
+    --cream: #faf8f0;
+    --cream-deep: #f5f0e0;
+    --cream-warm: #fcf8e3;
+    --text-dark: #1a1a2e;
+    --text-mid: #4a4a6a;
+    --text-muted: #8a8aaa;
+    --white: #ffffff;
+    --border: #e0d8c8;
+    --shadow-sm: 0 2px 12px rgba(30,58,95,0.08);
+    --shadow-md: 0 6px 24px rgba(30,58,95,0.12);
+    --shadow-lg: 0 16px 48px rgba(30,58,95,0.16);
+    --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--cream);
+    color: var(--text-dark);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* ---- Typography ---- */
+h1, h2, h3, h4, h5, h6, .font-serif {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 400;
+}
+
+/* ===========================
+   NAVBAR
+   =========================== */
+.navbar {
+    background-color: var(--sky-bg) !important;
+    border-bottom: none !important;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    box-shadow: 0 2px 8px rgba(30,58,95,0.1);
+}
+
+.navbar-brand {
+    padding: 0;
+}
+
+.navbar-logo-img {
+    height: 72px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+}
+
+.navbar .nav-link {
+    color: var(--navy) !important;
+    font-weight: 500;
+    font-size: 0.92rem;
+    letter-spacing: 0.3px;
+    padding: 0.5rem 1rem !important;
+    transition: var(--transition);
+    position: relative;
+}
+
+.navbar .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 1rem;
+    right: 1rem;
+    height: 2px;
+    background: var(--navy);
+    transform: scaleX(0);
+    transition: var(--transition);
+}
+
+.navbar .nav-link:hover::after,
+.navbar .nav-link.active::after {
+    transform: scaleX(1);
+}
+
+.navbar .nav-link:hover {
+    color: var(--navy) !important;
+    opacity: 0.75;
+}
+
+/* Dropdown */
+.dropdown-menu {
+    border: 1px solid var(--sky-light);
+    border-radius: 0;
+    box-shadow: var(--shadow-md);
+    background: var(--sky-light);
+    padding: 0.5rem 0;
+    min-width: 180px;
+}
+
+.dropdown-item {
+    font-size: 0.875rem;
+    color: var(--navy);
+    padding: 0.5rem 1.25rem;
+    transition: var(--transition);
+}
+
+.dropdown-item:hover {
+    background-color: var(--sky-bg);
+    color: var(--navy);
+}
+
+/* Nav Search */
+.nav-search-form {
+    margin: 0;
+}
+
+.nav-search-pill {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.75);
+    border: 1.5px solid rgba(30, 58, 95, 0.2);
+    border-radius: 20px;
+    padding: 2px 6px 2px 12px;
+    transition: var(--transition);
+}
+
+.nav-search-pill:focus-within {
+    background: #ffffff;
+    border-color: var(--navy);
+    box-shadow: 0 0 0 2px rgba(30, 58, 95, 0.15);
+}
+
+.nav-search-input {
+    border: none;
+    background: transparent;
+    font-size: 0.85rem;
+    color: var(--navy);
+    width: 120px;
+    padding: 0.2rem 0.2rem;
+    transition: width 0.3s ease;
+}
+
+.nav-search-input:focus {
+    outline: none;
+    width: 170px;
+}
+
+.nav-search-input::placeholder {
+    color: var(--text-muted);
+    font-size: 0.82rem;
+}
+
+.nav-search-btn {
+    border: none;
+    background: transparent;
+    color: var(--navy);
+    font-size: 0.95rem;
+    padding: 0.2rem 0.35rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: var(--transition);
+}
+
+.nav-search-btn:hover {
+    color: var(--navy-mid);
+    transform: scale(1.1);
+}
+
+/* Nav icons */
+.nav-icon-btn {
+    background: none;
+    border: none;
+    color: var(--navy);
+    font-size: 1.2rem;
+    padding: 0.4rem 0.6rem;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.nav-icon-btn:hover {
+    color: var(--navy-mid);
+    opacity: 0.7;
+}
+
+.nav-icon-active {
+    color: var(--navy) !important;
+}
+
+/* ===========================
+   BUTTONS
+   =========================== */
+.btn {
+    border-radius: 0 !important;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: var(--transition);
+}
+
+.btn-navy {
+    background-color: var(--navy);
+    color: #fff;
+    border: 2px solid var(--navy);
+}
+
+.btn-navy:hover {
+    background-color: var(--navy-mid);
+    border-color: var(--navy-mid);
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-outline-navy {
+    background-color: transparent;
+    color: var(--navy);
+    border: 1.5px solid var(--navy);
+}
+
+.btn-outline-navy:hover {
+    background-color: var(--navy);
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+/* Override Bootstrap dark btn to use navy */
+.btn-dark {
+    background-color: var(--navy) !important;
+    border-color: var(--navy) !important;
+    border-radius: 0 !important;
+}
+
+.btn-dark:hover {
+    background-color: var(--navy-mid) !important;
+    border-color: var(--navy-mid) !important;
+}
+
+.btn-outline-dark {
+    color: var(--navy) !important;
+    border-color: var(--navy) !important;
+    border-radius: 0 !important;
+}
+
+.btn-outline-dark:hover {
+    background-color: var(--navy) !important;
+    color: #fff !important;
+}
+
+/* ===========================
+   CARDS
+   =========================== */
+.card {
+    border-radius: 0 !important;
+    border: none !important;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+.card:hover {
+    box-shadow: var(--shadow-md);
+}
+
+/* ===========================
+   FORM CONTROLS
+   =========================== */
+.form-control {
+    border-radius: 0 !important;
+    border: 1px solid var(--border);
+    background-color: var(--white);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    padding: 0.55rem 0.85rem;
+    transition: var(--transition);
+}
+
+.form-control:focus {
+    border-color: var(--navy);
+    box-shadow: 0 0 0 3px rgba(30, 58, 95, 0.12);
+    outline: none;
+}
+
+.form-label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-mid);
+    letter-spacing: 0.3px;
+    margin-bottom: 0.35rem;
+}
+
+.form-check-input:checked {
+    background-color: var(--navy);
+    border-color: var(--navy);
+}
+
+/* ===========================
+   ALERTS / BADGES
+   =========================== */
+.alert {
+    border-radius: 0 !important;
+}
+
+.badge {
+    border-radius: 0 !important;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+/* ===========================
+   FLASH MESSAGES CONTAINER
+   =========================== */
+.flash-container {
+    position: fixed;
+    top: 80px;
+    right: 1.5rem;
+    z-index: 1055;
+    max-width: 360px;
+}
+
+/* ===========================
+   HERO SECTION
+   =========================== */
+.hero-section {
+    position: relative;
+    min-height: 480px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.45) 0%,
+        rgba(0, 0, 0, 0.15) 60%,
+        rgba(0, 0, 0, 0.05) 100%
+    );
+    z-index: 1;
+}
+
+.hero-section .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 3rem 4rem;
+}
+
+.hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 400;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+/* ===========================
+   BRIDE SECTION
+   =========================== */
+.bride-section {
+    position: relative;
+    overflow: hidden;
+}
+
+.bride-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.28);
+    z-index: 1;
+}
+
+.bride-content {
+    position: relative;
+    z-index: 2;
+}
+
+/* ===========================
+   RENTING INFO SECTION
+   =========================== */
+.renting-section {
+    background-color: var(--cream-warm);
+}
+
+.renting-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-style: italic;
+    color: var(--navy);
+    line-height: 1.2;
+}
+
+/* ===========================
+   ITEM / CATALOG CARDS
+   =========================== */
+.item-card {
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.item-card:hover .item-img-wrap img {
+    transform: scale(1.04);
+}
+
+.item-img-wrap {
+    overflow: hidden;
+    background-color: #ece8e0;
+}
+
+.item-img-wrap img {
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ===========================
+   ITEM DETAIL PAGE
+   =========================== */
+.size-badge {
+    display: inline-block;
+    padding: 0.4rem 1.2rem;
+    border: 1.5px solid var(--navy);
+    color: var(--navy);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.size-badge.active,
+.size-badge:hover {
+    background-color: var(--navy);
+    color: white;
+}
+
+.duration-badge {
+    display: inline-block;
+    padding: 0.4rem 1.2rem;
+    border: 1.5px solid var(--border);
+    color: var(--text-mid);
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-radius: 20px !important;
+}
+
+.duration-badge.active,
+.duration-badge:hover {
+    border-color: var(--navy);
+    color: var(--navy);
+    background: var(--sky-light);
+}
+
+/* Calendar Styles */
+.rt-calendar {
+    background: var(--cream-warm);
+    border: 1px solid var(--border);
+    padding: 1.2rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+}
+
+.rt-calendar .cal-header {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    text-align: center;
+    margin-bottom: 0.75rem;
+    color: var(--navy);
+}
+
+.rt-calendar table {
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+}
+
+.rt-calendar th {
+    font-weight: 600;
+    color: var(--text-mid);
+    padding: 0.3rem;
+    font-size: 0.75rem;
+}
+
+.rt-calendar td {
+    padding: 0.35rem;
+    color: var(--text-dark);
+    cursor: pointer;
+    border-radius: 50%;
+    transition: var(--transition);
+    font-size: 0.82rem;
+}
+
+.rt-calendar td:hover:not(.empty) {
+    background: var(--sky-bg);
+    color: var(--navy);
+}
+
+.rt-calendar td.selected {
+    background: var(--navy);
+    color: white;
+    border-radius: 50%;
+}
+
+.rt-calendar td.today {
+    font-weight: 700;
+    color: var(--navy);
+}
+
+/* ===========================
+   CART PAGE
+   =========================== */
+.cart-header {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 2rem 0 1.5rem;
+    color: var(--navy);
+}
+
+.cart-table thead th {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-bottom: 1.5px solid var(--border);
+    padding: 0.75rem 1rem;
+    background: transparent;
+}
+
+.cart-table tbody td {
+    padding: 1.25rem 1rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+}
+
+.cart-qty-btn {
+    width: 30px;
+    height: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid var(--border);
+    background: var(--white);
+    color: var(--text-dark);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: var(--transition);
+    border-radius: 0 !important;
+    padding: 0;
+}
+
+.cart-qty-btn:hover {
+    border-color: var(--navy);
+    color: var(--navy);
+}
+
+.cart-qty-input {
+    width: 40px;
+    text-align: center;
+    border: 1.5px solid var(--border);
+    padding: 0.2rem;
+    font-size: 0.9rem;
+    border-radius: 0 !important;
+}
+
+.remove-link {
+    font-size: 0.72rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0;
+    text-decoration: underline;
+    transition: var(--transition);
+    display: block;
+    margin-top: 0.3rem;
+}
+
+.remove-link:hover {
+    color: #c0392b;
+}
+
+.cart-total-bar {
+    background: var(--white);
+    border-top: 2px solid var(--border);
+    padding: 1.5rem 2rem;
+}
+
+.cart-total-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-mid);
+}
+
+.cart-total-amount {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--navy);
+}
+
+.cart-tax-note {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.btn-checkout {
+    background: var(--navy);
+    color: #fff;
+    padding: 0.8rem 2.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border: none;
+    transition: var(--transition);
+    cursor: pointer;
+    border-radius: 0 !important;
+}
+
+.btn-checkout:hover {
+    background: var(--navy-mid);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+    color: #fff;
+}
+
+.btn-continue {
+    background: transparent;
+    color: var(--navy);
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-decoration: underline;
+    border: none;
+    padding: 0;
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.btn-continue:hover {
+    color: var(--navy-mid);
+    opacity: 0.7;
+}
+
+/* ===========================
+   LOGIN / REGISTER FORMS
+   =========================== */
+.auth-card {
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.auth-side-panel {
+    background-color: var(--cream-warm);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 2rem;
+    text-align: center;
+}
+
+.auth-logo-img {
+    width: 100%;
+    max-width: 260px;
+    margin: 0 auto;
+    display: block;
+    object-fit: contain;
+}
+
+.auth-form-panel {
+    background: var(--white);
+    padding: 3rem 2.5rem;
+}
+
+.auth-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.75rem;
+    color: var(--text-dark);
+    margin-bottom: 1.75rem;
+}
+
+.auth-link {
+    color: var(--navy);
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.auth-link:hover {
+    color: var(--navy-mid);
+    text-decoration: underline;
+}
+
+.btn-auth {
+    background: var(--navy);
+    color: #fff;
+    padding: 0.7rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    border: none;
+    width: 100%;
+    transition: var(--transition);
+    border-radius: 0 !important;
+}
+
+.btn-auth:hover {
+    background: var(--navy-mid);
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+/* ===========================
+   CHECKOUT / PAYMENT
+   =========================== */
+.checkout-card {
+    box-shadow: var(--shadow-md);
+    border-radius: 12px !important;
+    overflow: hidden;
+    background: var(--white);
+    max-width: 420px;
+    margin: 0 auto;
+}
+
+.payment-box {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.5rem;
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+/* ===========================
+   FOOTER
+   =========================== */
+footer {
+    background-color: var(--navy) !important;
+    color: rgba(255,255,255,0.8) !important;
+    border-top: none !important;
+}
+
+footer p {
+    color: rgba(255,255,255,0.7) !important;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+}
+
+/* ===========================
+   UTILITY
+   =========================== */
+.bg-pastel-cream {
+    background-color: var(--cream-warm) !important;
+}
+
+.text-navy {
+    color: var(--navy) !important;
+}
+
+.tracking-wide {
+    letter-spacing: 2px;
+}
+
+.section-divider {
+    border: none;
+    border-top: 1.5px solid var(--border);
+    margin: 2rem 0;
+}
+
+/* Password toggle eye icon */
+.input-password-wrap {
+    position: relative;
+}
+
+.input-password-wrap .toggle-eye {
+    position: absolute;
+    right: 0.85rem;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: var(--text-muted);
+    font-size: 1rem;
+    background: none;
+    border: none;
+    padding: 0;
+    transition: var(--transition);
+}
+
+.input-password-wrap .toggle-eye:hover {
+    color: var(--navy);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: var(--cream);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--sky-bg);
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--navy);
+}

@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-9">
+            <div class="auth-card card">
+                <div class="row g-0">
+                    <!-- Form side -->
+                    <div class="col-md-6 auth-form-panel">
+                        <h2 class="auth-title">Create an Account</h2>
+
+                        <form method="POST">
+                            <div class="mb-3">
+                                <label class="form-label">Email</label>
+                                <input type="email" name="email" id="reg-email" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Password</label>
+                                <div class="input-password-wrap">
+                                    <input type="password" name="password" id="reg-password" class="form-control pe-5" required>
+                                    <button type="button" class="toggle-eye" onclick="togglePassword('reg-password', this)">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Confirm Password</label>
+                                <div class="input-password-wrap">
+                                    <input type="password" name="confirm_password" id="reg-confirm" class="form-control pe-5" required>
+                                    <button type="button" class="toggle-eye" onclick="togglePassword('reg-confirm', this)">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="d-grid mb-3 mt-4">
+                                <button type="submit" class="btn-auth">Enter</button>
+                            </div>
+                            <div class="text-center mt-3">
+                                <span class="text-muted small">Already have an account? </span>
+                                <a href="{{ url_for('login') }}" class="auth-link small">Login</a>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Bow / Welcome panel -->
+                    <div class="col-md-6 p-0" style="overflow:hidden;">
+                        <div class="h-100 d-flex flex-column align-items-center justify-content-center"
+                             style="background: url('{{ url_for('static', filename='images/bow-welcome.jpg') }}') center/cover no-repeat; min-height: 420px;">
+                            <span style="font-family:'Playfair Display',serif; font-size:2rem; letter-spacing:4px; color:#2d5282; text-shadow:0 2px 8px rgba(255,255,255,0.8);">WELCOME</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

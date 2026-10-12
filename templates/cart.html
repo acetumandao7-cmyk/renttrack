@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- Cart Header -->
+<div class="cart-header">Your Cart</div>
+
+<div class="container mb-5">
+    {% if cart_items %}
+    <div class="bg-white shadow-sm">
+        <!-- Cart Table -->
+        <table class="table cart-table mb-0">
+            <thead>
+                <tr>
+                    <th style="width:45%;"><!-- item --></th>
+                    <th class="text-center">Price</th>
+                    <th class="text-center">Quantity</th>
+                    <th class="text-end pe-4">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart_items %}
+                <tr>
+                    <!-- Item Info -->
+                    <td>
+                        <div class="d-flex align-items-center gap-3">
+                            {% if item.image_url %}
+                                <img src="{{ url_for('static', filename=item.image_url) }}"
+                                     alt="{{ item.name }}"
+                                     style="width:80px; height:80px; object-fit:cover; background:#eee;">
+                            {% else %}
+                                <div style="width:80px; height:80px; background:#ece8e0; display:flex; align-items:center; justify-content:center;">
+                                    <i class="bi bi-image text-muted"></i>
+                                </div>
+                            {% endif %}
+                            <div>
+                                <div class="fw-semibold" style="font-size:0.95rem; color:var(--navy);">{{ item.name }}</div>
+                                {% if item.start_date and item.return_date %}
+                                <div class="text-muted" style="font-size:0.78rem;">Start: {{ item.start_date }}</div>
+                                <div class="text-muted" style="font-size:0.78rem;">Return: {{ item.return_date }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </td>
+                    <!-- Price -->
+                    <td class="text-center align-middle">
+                        <span style="font-size:0.92rem; color:var(--navy);">₱ {{ "%.2f"|format(item.price) }}</span>
+                    </td>
+                    <!-- Quantity -->
+                    <td class="text-center align-middle">
+                        <div class="d-flex align-items-center justify-content-center gap-1">
+                            <button class="cart-qty-btn">−</button>
+                            <input class="cart-qty-input" type="text" value="1" readonly>
+                            <button class="cart-qty-btn">+</button>
+                        </div>
+                        <a href="{{ url_for('remove_from_cart', id=item.id) }}" class="remove-link">Remove</a>
+                    </td>
+                    <!-- Total -->
+                    <td class="text-end align-middle pe-4">
+                        <span style="font-size:0.92rem; color:var(--navy);">₱ {{ "%.2f"|format(item.price) }}</span>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Cart Total Bar -->
+        <div class="cart-total-bar d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
+            <div>
+                <div class="cart-total-label">Total</div>
+                <div class="cart-total-amount">₱ {{ "%.2f"|format(total) }}</div>
+                <div class="cart-tax-note">Taxes and shipping is already included</div>
+            </div>
+            <div class="d-flex align-items-center gap-4">
+                <a href="{{ url_for('catalog') }}" class="btn-continue">Continue Shopping</a>
+                <form action="{{ url_for('checkout') }}" method="POST">
+                    <input type="hidden" name="customer_email" value="{{ session.get('user_email', '') }}">
+                    <button type="submit" class="btn-checkout">Proceed to Checkout</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {% else %}
+    <!-- Empty cart -->
+    <div class="text-center py-5">
+        <i class="bi bi-cart2 text-muted" style="font-size:4rem; opacity:0.3;"></i>
+        <p class="text-muted mt-3 mb-4">Your cart is empty.</p>
+        <a href="{{ url_for('catalog') }}" class="btn btn-dark px-5 py-2 text-uppercase" style="letter-spacing:2px; font-size:0.82rem;">
+            Browse Collection
+        </a>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}

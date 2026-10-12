@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card border-0 bg-light p-4 rounded-0">
+                <h3 class="mb-3" style="font-family: serif;">Apply to Become a Seller</h3>
+                
+                {% if user.seller_status == 'Pending' %}
+                    <div class="alert alert-warning rounded-0" role="alert">
+                        Your application is currently <strong>Pending Review</strong> by the admin. Please wait for approval.
+                    </div>
+                {% elif user.seller_status == 'Approved' %}
+                    <div class="alert alert-success rounded-0" role="alert">
+                        Your application has been approved! You can now access your <a href="{{ url_for('seller_dashboard') }}" class="alert-link">Seller Dashboard</a>.
+                    </div>
+                {% else %}
+                    <form method="POST">
+                        <div class="mb-3">
+                            <label class="form-label">Shop Name</label>
+                            <input type="text" name="shop_name" class="form-control rounded-0" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Shop Details / Description</label>
+                            <textarea name="shop_details" rows="4" class="form-control rounded-0" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-dark rounded-0 w-100">Submit Application</button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

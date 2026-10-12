@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-9">
+            <div class="auth-card card">
+                <div class="row g-0">
+                    <!-- Form side -->
+                    <div class="col-md-6 auth-form-panel">
+                        <h2 class="auth-title">Login</h2>
+
+                        <form method="POST">
+                            <div class="mb-3">
+                                <label class="form-label">Email</label>
+                                <input type="email" name="email" id="login-email" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Password</label>
+                                <div class="input-password-wrap">
+                                    <input type="password" name="password" id="login-password" class="form-control pe-5" required>
+                                    <button type="button" class="toggle-eye" onclick="togglePassword('login-password', this)">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="remember">
+                                <label class="form-check-label small text-muted" for="remember">Remember me</label>
+                            </div>
+                            <div class="d-grid mb-3">
+                                <button type="submit" class="btn-auth">Enter</button>
+                            </div>
+                            <div class="text-center mt-3">
+                                <span class="text-muted small">Don't have an account? </span>
+                                <a href="{{ url_for('register') }}" class="auth-link small">Sign up</a>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Logo side -->
+                    <div class="col-md-6 auth-side-panel">
+                        <img src="{{ url_for('static', filename='images/renttrack-logo.png') }}"
+                             alt="RentTrack" class="auth-logo-img">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container my-5">
+    <h2 class="mb-4" style="font-family: serif;">Manage Seller Applications</h2>
+    
+    <h4 class="mb-3">Pending Applications</h4>
+    <div class="table-responsive mb-5">
+        <table class="table align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Email</th>
+                    <th>Shop Name</th>
+                    <th>Shop Details</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if pending_sellers %}
+                    {% for s in pending_sellers %}
+                    <tr>
+                        <td>{{ s.email }}</td>
+                        <td>{{ s.shop_name }}</td>
+                        <td>{{ s.shop_details }}</td>
+                        <td>
+                            <a href="{{ url_for('approve_seller', id=s.id) }}" class="btn btn-success btn-sm rounded-0">Approve</a>
+                            <a href="{{ url_for('reject_seller', id=s.id) }}" class="btn btn-danger btn-sm rounded-0">Reject</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="4" class="text-center text-muted py-4">No pending seller applications.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+    <h4 class="mb-3">Approved Sellers</h4>
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Email</th>
+                    <th>Shop Name</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if approved_sellers %}
+                    {% for s in approved_sellers %}
+                    <tr>
+                        <td>{{ s.email }}</td>
+                        <td>{{ s.shop_name }}</td>
+                        <td><span class="badge bg-success rounded-0">Active Seller</span></td>
+                        <td>
+                            <a href="{{ url_for('delete_approved_seller', id=s.id) }}" class="btn btn-outline-danger btn-sm rounded-0" onclick="return confirm('Do you want to delete this seller?');">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="4" class="text-center text-muted py-4">No approved sellers yet.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm rounded-0 p-4" style="background-color: #fcfcf4;">
+                <h3 class="mb-4" style="font-family: serif;">Seller: Edit Item</h3>
+                <form method="POST" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label class="form-label small">Item Name</label>
+                        <input type="text" name="name" value="{{ item.name }}" class="form-control rounded-0" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="category" class="form-label small">Category</label>
+                        <select class="form-select rounded-0" id="category" name="category" required>
+                            <option value="Bridal Dress" {% if item.category == 'Bridal Dress' %}selected{% endif %}>Bridal Dress</option>
+                            <option value="Wedding Guest" {% if item.category == 'Wedding Guest' %}selected{% endif %}>Wedding Guest</option>
+                            <option value="Graduation" {% if item.category == 'Graduation' %}selected{% endif %}>Graduation</option>
+                            <option value="Birthday" {% if item.category == 'Birthday' %}selected{% endif %}>Birthday</option>
+                            <option value="Debut" {% if item.category == 'Debut' %}selected{% endif %}>Debut</option>
+                            <option value="Prom" {% if item.category == 'Prom' %}selected{% endif %}>Prom</option>
+                            <option value="Vacation" {% if item.category == 'Vacation' %}selected{% endif %}>Vacation</option>
+                            <option value="Closet drop" {% if item.category == 'Closet drop' %}selected{% endif %}>Closet drop</option>
+                            <option value="Gown" {% if item.category == 'Gown' %}selected{% endif %}>Gown</option>
+                            <option value="Filipiniana" {% if item.category == 'Filipiniana' or item.category == 'Filipina' %}selected{% endif %}>Filipiniana</option>
+                            <option value="Traditional" {% if item.category == 'Traditional' %}selected{% endif %}>Traditional</option>
+                            <option value="Casual / Party" {% if item.category == 'Casual / Party' %}selected{% endif %}>Casual / Party</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small">Size</label>
+                        <select name="size" class="form-select rounded-0" required>
+                            <option value="XS" {% if item.size == 'XS' %}selected{% endif %}>XS</option>
+                            <option value="S" {% if item.size == 'S' %}selected{% endif %}>S</option>
+                            <option value="M" {% if item.size == 'M' %}selected{% endif %}>M</option>
+                            <option value="L" {% if item.size == 'L' %}selected{% endif %}>L</option>
+                            <option value="XL" {% if item.size == 'XL' %}selected{% endif %}>XL</option>
+                            <option value="XXL" {% if item.size == 'XXL' %}selected{% endif %}>XXL</option>
+                            <option value="XXXL" {% if item.size == 'XXXL' %}selected{% endif %}>XXXL</option>
+                            <option value="Free Size" {% if item.size == 'Free Size' %}selected{% endif %}>Free Size</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small">Price per Day (PHP)</label>
+                        <input type="number" step="0.01" name="price" value="{{ item.price }}" class="form-control rounded-0" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small">Current Image</label>
+                        {% if item.image_url %}
+                            <div class="mb-2">
+                                <img src="{{ url_for('static', filename=item.image_url) }}" alt="{{ item.name }}" style="height: 80px; width: 80px; object-fit: cover;" class="border">
+                            </div>
+                        {% else %}
+                            <p class="text-muted small">No uploaded picture.</p>
+                        {% endif %}
+                        <label class="form-label small">Change Item Image (Optional)</label>
+                        <input type="file" name="image" class="form-control rounded-0" accept="image/*">
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <a href="{{ url_for('seller_dashboard') }}" class="btn btn-outline-dark rounded-0 px-4">Cancel</a>
+                        <button type="submit" class="btn btn-dark rounded-0 px-4">Update Product</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

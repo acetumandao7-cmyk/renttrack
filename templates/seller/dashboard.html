@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 style="font-family: serif;">Seller Dashboard (Manage Products)</h2>
+        <a href="{{ url_for('seller_add_item') }}" class="btn btn-dark rounded-0 px-4">Add New Item</a>
+    </div>
+
+    <!-- Seller Performance Chart -->
+    <div class="card border-0 bg-light p-4 rounded-0 shadow-sm mb-5">
+        <h4 class="mb-4" style="font-family: serif;">My Product & Inventory Overview</h4>
+        <div style="width: 100%; max-height: 300px;">
+            <canvas id="sellerChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Products Table -->
+    <div class="card border-0 bg-light p-4 rounded-0 shadow-sm">
+        <h4 class="mb-4" style="font-family: serif;">My Listed Products</h4>
+        <div class="table-responsive">
+            <table class="table align-middle mb-0 bg-white">
+                <thead class="bg-dark text-white">
+                    <tr>
+                        <th class="py-3 ps-3">Image</th>
+                        <th class="py-3">Item Name</th>
+                        <th class="py-3">Category</th>
+                        <th class="py-3">Size</th>
+                        <th class="py-3">Price / Day</th>
+                        <th class="py-3">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if items %}
+                        {% for item in items %}
+                        <tr>
+                            <td class="ps-3">
+                                {% if item.image_url %}
+                                    <img src="{{ url_for('static', filename=item.image_url) }}" width="50" height="50" class="object-fit-cover rounded-0" alt="...">
+                                {% else %}
+                                    <span class="text-muted small">No image</span>
+                                {% endif %}
+                            </td>
+                            <td class="fw-bold">{{ item.name }}</td>
+                            <td>{{ item.category }}</td>
+                            <td>{{ item.size }}</td>
+                            <td>P{{ item.price }}</td>
+                            <td>
+                                <a href="{{ url_for('seller_edit_item', id=item.id) }}" class="btn btn-outline-dark btn-sm rounded-0 me-1">Edit</a>
+                                <a href="{{ url_for('seller_delete_item', id=item.id) }}" class="btn btn-outline-danger btn-sm rounded-0" onclick="return confirm('Are you sure?')">Delete</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="6" class="text-center py-4 text-muted">No items yet. Click "Add New Item" to start listing your gowns.</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Include Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('sellerChart').getContext('2d');
+    const sellerChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Total Listed Products'],
+            datasets: [{
+                label: 'My Products Count',
+                data: [{{ items | length }}],
+                backgroundColor: ['rgba(25, 135, 84, 0.7)'],
+                borderColor: ['rgb(25, 135, 84)'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1
+                    }
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}
