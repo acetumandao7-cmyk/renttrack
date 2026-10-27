@@ -842,3 +842,80 @@ footer p {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--navy);
 }
+
+.checkout-card {
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border);
+}
+
+.section-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0.5rem 0;
+}
+
+.payment-box {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.2rem;
+    display: flex;
+    align-items: center;
+}
+
+.payment-box .form-check-input[type="radio"] {
+    width: 1.1em;
+    height: 1.1em;
+    border-color: var(--navy-mid);
+    cursor: pointer;
+}
+
+.payment-box .form-check-input[type="radio"]:checked {
+    background-color: var(--navy);
+    border-color: var(--navy);
+}
+
+.btn-checkout {
+    background: var(--navy);
+    color: #fff;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-checkout:hover {
+    background: var(--navy-mid);
+}
+
+.payment-option {
+    display: block;
+    cursor: pointer;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    transition: var(--transition);
+}
+
+.payment-option:hover {
+    border-color: var(--navy-mid);
+    background: var(--cream);
+}
+
+.payment-option.selected {
+    border-color: var(--navy);
+    background: var(--sky-light);
+}
+
+.payment-option-inner {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}

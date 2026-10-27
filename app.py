@@ -128,6 +128,7 @@ def checkout():
         return_date = request.form.get('return_date')
         email = request.form.get('customer_email') or request.form.get('email')
         shipping_address = request.form.get('shipping_address', 'Standard Delivery')
+        payment_method = request.form.get('payment_method', 'cod')
 
         item_names = ", ".join([item['name'] for item in cart_items])
         trans_id = f"#TR-{random.randint(1000, 9999)}"
@@ -149,16 +150,17 @@ def checkout():
             msg = Message(
                 subject=f'RentTrack - Rental Order Confirmation ({trans_id})',
                 recipients=[email],
-                body=f"Hello,\n\nThank you for renting with RentTrack! Transaction ID: {trans_id}\n\nShipping Address:\n{shipping_address}\n\nOrdered Items:\n{item_details}\n\nTotal Amount: P{total}\n\nWe will notify you once your items are out for delivery."
+                body=f"Hello,\n\nThank you for renting with RentTrack! Transaction ID: {trans_id}\n\nShipping Address:\n{shipping_address}\n\nPayment Method:\n{payment_method.upper()}\n\nOrdered Items:\n{item_details}\n\nTotal Amount: P{total}\n\nWe will notify you once your items are out for delivery."
             )
             mail.send(msg)
         except Exception as e:
             print(f"Email sending skipped/failed on cloud: {e}")
 
         session.pop('cart', None)
-        return render_template('order_success.html', email=email)
+        return render_template('order_success.html', email=email, payment_method=payment_method)
 
-    return render_template('checkout.html', cart_items=cart_items, total=total)
+    selected_payment = request.args.get('payment_method', 'cod')
+    return render_template('checkout.html', cart_items=cart_items, total=total, selected_payment=selected_payment)
 
 @app.route('/profile')
 def profile():

@@ -9,7 +9,7 @@
         <table class="table cart-table mb-0">
             <thead>
                 <tr>
-                    <th style="width:45%;"><!-- item --></th>
+                    <th style="width:45%;"></th>
                     <th class="text-center">Price</th>
                     <th class="text-center">Quantity</th>
                     <th class="text-end pe-4">Total</th>
@@ -65,10 +65,56 @@
             </div>
             <div class="d-flex align-items-center gap-4">
                 <a href="{{ url_for('catalog') }}" class="btn-continue">Continue Shopping</a>
-                <form action="{{ url_for('checkout') }}" method="POST">
-                    <input type="hidden" name="customer_email" value="{{ session.get('user_email', '') }}">
-                    <button type="submit" class="btn-checkout">Proceed to Checkout</button>
-                </form>
+                <button type="button" class="btn-checkout" data-bs-toggle="modal" data-bs-target="#paymentModal">Proceed to Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="border:none; border-radius:12px; overflow:hidden;">
+                <div class="modal-header" style="background:var(--navy); border:none; padding:1.2rem 1.5rem;">
+                    <h5 class="modal-title text-white" id="paymentModalLabel" style="font-family:'Playfair Display',serif; font-weight:400;">Select Payment Method</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="padding:1.5rem;">
+                    <p class="text-muted small mb-3">Choose how you'd like to pay for your rental</p>
+                    <form id="paymentForm" action="{{ url_for('checkout') }}" method="GET">
+                        <div class="d-flex flex-column gap-2">
+                            <label class="payment-option" id="opt-cod">
+                                <input type="radio" name="payment_method" value="cod" class="d-none" required>
+                                <div class="payment-option-inner">
+                                    <i class="bi bi-cash-stack" style="font-size:1.3rem; color:var(--navy);"></i>
+                                    <div>
+                                        <div class="fw-semibold" style="font-size:0.92rem;">Cash on Delivery</div>
+                                        <div class="text-muted" style="font-size:0.75rem;">Pay when you receive</div>
+                                    </div>
+                                </div>
+                            </label>
+                            <label class="payment-option" id="opt-card">
+                                <input type="radio" name="payment_method" value="card" class="d-none">
+                                <div class="payment-option-inner">
+                                    <i class="bi bi-credit-card" style="font-size:1.3rem; color:var(--navy);"></i>
+                                    <div>
+                                        <div class="fw-semibold" style="font-size:0.92rem;">Credit / Debit Card</div>
+                                        <div class="text-muted" style="font-size:0.75rem;">Visa, Mastercard, etc.</div>
+                                    </div>
+                                </div>
+                            </label>
+                            <label class="payment-option" id="opt-bank">
+                                <input type="radio" name="payment_method" value="bank" class="d-none">
+                                <div class="payment-option-inner">
+                                    <i class="bi bi-bank" style="font-size:1.3rem; color:var(--navy);"></i>
+                                    <div>
+                                        <div class="fw-semibold" style="font-size:0.92rem;">Bank Transfer</div>
+                                        <div class="text-muted" style="font-size:0.75rem;">Direct bank payment</div>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                        <button type="submit" class="btn-checkout w-100 mt-4" id="confirmPayBtn" disabled>Confirm & Proceed</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -83,5 +129,20 @@
     </div>
     {% endif %}
 </div>
+
+<script>
+(function() {
+    var radios = document.querySelectorAll('#paymentModal input[name="payment_method"]');
+    var btn = document.getElementById('confirmPayBtn');
+    var options = document.querySelectorAll('.payment-option');
+    radios.forEach(function(radio) {
+        radio.addEventListener('change', function() {
+            btn.disabled = false;
+            options.forEach(function(opt) { opt.classList.remove('selected'); });
+            radio.closest('.payment-option').classList.add('selected');
+        });
+    });
+})();
+</script>
 
 {% endblock %}

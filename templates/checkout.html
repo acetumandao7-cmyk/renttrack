@@ -4,7 +4,6 @@
     <div class="row justify-content-center">
         <div class="col-md-5">
             <div class="checkout-card p-4">
-                <!-- Email row -->
                 <div class="d-flex justify-content-between align-items-start mb-1">
                     <span class="text-muted small">Email: <strong>{{ session.get('user_email', '') }}</strong></span>
                     <button class="btn p-0 border-0 text-muted" style="font-size:1.2rem; line-height:1;">&#8942;</button>
@@ -18,32 +17,31 @@
 
                 <hr class="section-divider">
 
-                <!-- Payment section -->
-                <h5 class="mb-1" style="font-family:'Playfair Display',serif; font-weight:400; color:var(--navy);">Payment</h5>
-                <p class="text-muted small mb-3">All transaction are secure and encrypted</p>
+                <h5 class="mb-1" style="font-family:'Playfair Display',serif; font-weight:400; color:var(--navy);">Payment Method</h5>
+                <p class="text-muted small mb-3">All transactions are secure and encrypted</p>
 
                 <form action="{{ url_for('checkout') }}" method="POST">
                     <input type="hidden" name="customer_email" value="{{ session.get('user_email', '') }}">
 
-                    <!-- Payment box -->
                     <div class="payment-box mb-4">
                         <div class="w-100">
-                            <p class="text-muted small text-center mb-3">Select payment method</p>
                             <div class="d-flex flex-column gap-2">
-                                <label class="d-flex align-items-center gap-2" style="cursor:pointer; font-size:0.9rem;">
-                                    <input type="radio" name="payment_method" value="gcash" class="form-check-input mt-0"> GCash
+                                <label class="payment-option {% if selected_payment == 'cod' or selected_payment == 'cash' or not selected_payment %}selected{% endif %}">
+                                    <input type="radio" name="payment_method" value="cod" class="form-check-input mt-0" {% if selected_payment == 'cod' or selected_payment == 'cash' or not selected_payment %}checked{% endif %}>
+                                    <span class="ms-2 fw-semibold" style="font-size:0.9rem;">Cash on Delivery</span>
                                 </label>
-                                <label class="d-flex align-items-center gap-2" style="cursor:pointer; font-size:0.9rem;">
-                                    <input type="radio" name="payment_method" value="cod" class="form-check-input mt-0"> Cash on Delivery
+                                <label class="payment-option {% if selected_payment == 'card' %}selected{% endif %}">
+                                    <input type="radio" name="payment_method" value="card" class="form-check-input mt-0" {% if selected_payment == 'card' %}checked{% endif %}>
+                                    <span class="ms-2 fw-semibold" style="font-size:0.9rem;">Credit / Debit Card</span>
                                 </label>
-                                <label class="d-flex align-items-center gap-2" style="cursor:pointer; font-size:0.9rem;">
-                                    <input type="radio" name="payment_method" value="bank" class="form-check-input mt-0"> Bank Transfer
+                                <label class="payment-option {% if selected_payment == 'bank' %}selected{% endif %}">
+                                    <input type="radio" name="payment_method" value="bank" class="form-check-input mt-0" {% if selected_payment == 'bank' %}checked{% endif %}>
+                                    <span class="ms-2 fw-semibold" style="font-size:0.9rem;">Bank Transfer</span>
                                 </label>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Dates -->
                     <div class="mb-3">
                         <label class="form-label">Start Date</label>
                         <input type="date" name="start_date" class="form-control" required>
