@@ -11,9 +11,6 @@ app = Flask(__name__)
 app.config.from_object(Config)
 db = SQLAlchemy(app)
 
-with app.app_context():
-    db.create_all()
-
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
@@ -456,6 +453,9 @@ def seller_mark_returned(id):
     rental.status = 'Returned'
     db.session.commit()
     return redirect(url_for('seller_rentals'))
+
+with app.app_context():
+    db.create_all()
 
 if __name__ == '__main__':
     with app.app_context():
