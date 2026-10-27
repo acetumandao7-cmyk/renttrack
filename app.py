@@ -153,7 +153,7 @@ def checkout():
             )
             mail.send(msg)
         except Exception as e:
-            print(f"Error sending email: {e}")
+            print(f"Email sending skipped/failed on cloud: {e}")
 
         session.pop('cart', None)
         return render_template('order_success.html', email=email)
@@ -205,7 +205,6 @@ def login():
         password = request.form['password']
         
         user = User.query.filter_by(email=email).first()
-        # Sinusuri kung tama ang password gamit ang check_password_hash o plain text kung sakaling may lumang data
         if user and (check_password_hash(user.password, password) or user.password == password):
             session['user_email'] = user.email
             session['user_role'] = user.role
@@ -233,7 +232,7 @@ def logout():
 def register():
     if request.method == 'POST':
         email = request.form['email']
-        password = generate_password_hash(request.form['password']) # Naka-hash na rin ang pag-register
+        password = generate_password_hash(request.form['password'])
         
         existing_user = User.query.filter_by(email=email).first()
         if existing_user:

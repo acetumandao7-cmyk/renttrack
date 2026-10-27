@@ -91,6 +91,7 @@
                                 <th>Item(s)</th>
                                 <th>Rental Period</th>
                                 <th>Total</th>
+                                <th>Payment</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
@@ -111,6 +112,9 @@
                                 </td>
                                 <td>
                                     <span class="fw-semibold text-dark">₱{{ "%.2f"|format(rental.total_amount) }}</span>
+                                </td>
+                                <td>
+                                    <span class="small text-muted">{{ rental.payment_method or 'N/A' }}</span>
                                 </td>
                                 <td>
                                     <span class="badge {{ rental.badge_class }} px-2 py-1" style="font-size: 0.75rem;">

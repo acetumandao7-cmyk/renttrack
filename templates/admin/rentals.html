@@ -11,6 +11,7 @@
                     <th>Item</th>
                     <th>Start Date</th>
                     <th>Return Date</th>
+                    <th>Payment</th>
                     <th>Status / Action</th>
                 </tr>
             </thead>
@@ -23,6 +24,7 @@
                         <td>{{ r.item_name }}</td>
                         <td>{{ r.start_date }}</td>
                         <td>{{ r.return_date }}</td>
+                        <td>{{ r.payment_method or 'N/A' }}</td>
                         <td>
                             <div class="d-flex align-items-center gap-2">
                                 <span class="badge {{ r.badge_class }} rounded-0 px-2 py-2">{{ r.computed_status }}</span>
@@ -37,7 +39,7 @@
                     {% endfor %}
                 {% else %}
                     <tr>
-                        <td colspan="6" class="text-center text-muted py-4">No rental transactions found.</td>
+                        <td colspan="7" class="text-center text-muted py-4">No rental transactions found.</td>
                     </tr>
                 {% endif %}
             </tbody>

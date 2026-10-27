@@ -16,6 +16,7 @@
                         <th class="py-3">Start Date</th>
                         <th class="py-3">Return Date</th>
                         <th class="py-3">Total Amount</th>
+                        <th class="py-3">Payment</th>
                         <th class="py-3">Status</th>
                         <th class="py-3">Actions</th>
                     </tr>
@@ -30,6 +31,7 @@
                             <td>{{ r.start_date }}</td>
                             <td>{{ r.return_date }}</td>
                             <td>P{{ r.total_amount }}</td>
+                            <td>{{ r.payment_method or 'N/A' }}</td>
                             <td>
                                 <span class="badge {{ r.badge_class }} rounded-0 px-2 py-1">
                                     {{ r.computed_status }}
@@ -46,7 +48,7 @@
                         {% endfor %}
                     {% else %}
                         <tr>
-                            <td colspan="8" class="text-center py-4 text-muted">No rental transactions found for your items yet.</td>
+                            <td colspan="9" class="text-center py-4 text-muted">No rental transactions found for your items yet.</td>
                         </tr>
                     {% endif %}
                 </tbody>
