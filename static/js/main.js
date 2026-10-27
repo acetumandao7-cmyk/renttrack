@@ -1,8 +1,3 @@
-// ===========================
-// RentTrack — main.js
-// ===========================
-
-// Password visibility toggle
 function togglePassword(fieldId, btn) {
     const input = document.getElementById(fieldId);
     const icon = btn.querySelector('i');
@@ -15,7 +10,6 @@ function togglePassword(fieldId, btn) {
     }
 }
 
-// Auto-dismiss flash alerts after 4 seconds
 document.addEventListener('DOMContentLoaded', function () {
     const alerts = document.querySelectorAll('.flash-container .alert');
     alerts.forEach(function (alert) {
