@@ -6,6 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Mail, Message
 from werkzeug.utils import secure_filename
 from config import Config
+from werkzeug.security import generate_password_hash
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -454,9 +455,20 @@ def seller_mark_returned(id):
     db.session.commit()
     return redirect(url_for('seller_rentals'))
 
+from werkzeug.security import generate_password_hash
+
 with app.app_context():
     db.create_all()
-
+    admin_email = "admin@renttrack.com" 
+    from app import User 
+    
+    admin_user = User.query.filter_by(email=admin_email).first()
+    if not admin_user:
+        hashed_password = generate_password_hash("admin123") 
+        new_admin = User(email=admin_email, password=hashed_password, is_admin=True)
+        db.session.add(new_admin)
+        db.session.commit()
+        print("Admin account created successfully!")
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
