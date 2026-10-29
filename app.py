@@ -145,17 +145,6 @@ def checkout():
         db.session.add(new_rental)
         db.session.commit()
 
-        try:
-            item_details = "\n".join([f"- {item['name']} (Size: {item['size']}) - P{item['price']}" for item in cart_items])
-            msg = Message(
-                subject=f'RentTrack - Rental Order Confirmation ({trans_id})',
-                recipients=[email],
-                body=f"Hello,\n\nThank you for renting with RentTrack! Transaction ID: {trans_id}\n\nShipping Address:\n{shipping_address}\n\nPayment Method:\n{payment_method.upper()}\n\nOrdered Items:\n{item_details}\n\nTotal Amount: P{total}\n\nWe will notify you once your items are out for delivery."
-            )
-            mail.send(msg)
-        except Exception as e:
-            print(f"Email sending skipped/failed on cloud: {e}")
-
         session.pop('cart', None)
         return render_template('order_success.html', email=email, payment_method=payment_method)
 
