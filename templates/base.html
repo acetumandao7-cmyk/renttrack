@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 
     <!-- ===== NAVBAR ===== -->
     <nav class="navbar navbar-expand-lg py-2">
@@ -144,12 +144,12 @@
     </div>
 
     <!-- ===== MAIN CONTENT ===== -->
-    <main>
+    <main class="flex-grow-1">
         {% block content %}{% endblock %}
     </main>
 
     <!-- ===== FOOTER ===== -->
-    <footer class="py-4 mt-5">
+    <footer class="py-4 mt-auto">
         <div class="container text-center">
             <p class="mb-0">&copy; 2026 RentTrack. All rights reserved.</p>
         </div>
